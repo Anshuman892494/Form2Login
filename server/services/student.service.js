@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { Student } from '../models/Student.model.js';
 import { generateUniqueUsername, generateSecurePassword } from '../utils/generator.js';
-import { sendWelcomeEmail } from './email.service.js';
 
 // In-memory student store fallback if MongoDB server is offline
 const memoryStudents = [];
@@ -94,17 +93,6 @@ export const registerStudentService = async (payload) => {
     memoryStudents.push(newStudent);
     memoryCounter++;
   }
-
-  // 6. Send credentials via Email (Handled on Google Apps Script side to bypass SMTP blocks)
-  /*
-  await sendWelcomeEmail({
-    email: cleanEmail,
-    name: cleanName,
-    username: generatedUsername,
-    password: rawPassword,
-    collegeName: cleanCollegeName,
-  });
-  */
 
   return {
     success: true,
