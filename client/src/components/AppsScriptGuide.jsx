@@ -26,7 +26,7 @@ function onFormSubmit(e) {
       method: "post",
       contentType: "application/json",
       headers: {
-        "x-webhook-secret": "form2login_super_secret_webhook_key_2026"
+        "x-webhook-secret": "YOUR_WEBHOOK_SECRET_HERE"
       },
       payload: JSON.stringify(payload),
       muteHttpExceptions: true

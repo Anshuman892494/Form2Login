@@ -20,13 +20,13 @@ A complete production-ready MERN Stack application that automatically processes 
           │  POST /api/students/google-register
           ▼
 [Express Backend]
-  ├── 1. Validate fields (Name, Father's Name, Mobile, Email, Course, Address)
-  ├── 2. Check for duplicate Email or Mobile in MongoDB
-  ├── 3. Auto-generate unique Username (e.g., EP260001)
-  ├── 4. Auto-generate secure random Password (e.g., Ex@48291)
-  ├── 5. Hash password with bcryptjs
-  ├── 6. Save Student document in MongoDB
-  └── 7. Send Welcome Email via Nodemailer (credentials & login URL)
+   ├── 1. Validate fields (Name, Mobile, Email, College Name, Address)
+   ├── 2. Check for duplicate Email or Mobile in MongoDB
+   ├── 3. Auto-generate unique Username (e.g., EP260001)
+   ├── 4. Auto-generate secure random Password (e.g., Ex@48291)
+   ├── 5. Hash password with bcryptjs
+   ├── 6. Save Student document in MongoDB
+   └── 7. Send Welcome Email via Nodemailer (credentials & login URL)
           │
           ▼
 [Student Receives Credentials via Email]
@@ -43,14 +43,13 @@ A complete production-ready MERN Stack application that automatically processes 
 
 ## 📋 Google Form Fields Mapping
 
-Ensure your Google Form contains the following 6 fields:
+Ensure your Google Form contains the following 5 fields:
 
 1. **Full Name** (`name`)
-2. **Father's Name** (`fatherName`)
-3. **Mobile Number** (`mobile`)
-4. **Email Address** (`email`)
-5. **Course** (`course`)
-6. **Address** (`address`)
+2. **Mobile Number** (`mobile`)
+3. **Email Address** (`email`)
+4. **College Name** (`collegeName`)
+5. **Address** (`address`)
 
 ---
 
@@ -136,14 +135,14 @@ To link your Google Form automatically to the Express backend:
 * **Method**: `POST`
 * **URL**: `/api/students/google-register`
 * **Content-Type**: `application/json`
+* **Request Headers**: `x-webhook-secret: YOUR_WEBHOOK_SECRET`
 * **Request Body**:
   ```json
   {
     "name": "Anshu Verma",
-    "fatherName": "Ram Verma",
     "mobile": "9876543210",
     "email": "anshu@example.com",
-    "course": "CCC",
+    "collegeName": "Lucknow University",
     "address": "Lucknow"
   }
   ```
@@ -157,11 +156,7 @@ To link your Google Form automatically to the Express backend:
       "name": "Anshu Verma",
       "email": "anshu@example.com",
       "username": "EP260001",
-      "course": "CCC"
-    },
-    "generatedCredentials": {
-      "username": "EP260001",
-      "password": "Ex@48291"
+      "collegeName": "Lucknow University"
     }
   }
   ```
@@ -189,7 +184,7 @@ To link your Google Form automatically to the Express backend:
       "id": "6602e1...",
       "name": "Anshu Verma",
       "username": "EP260001",
-      "course": "CCC"
+      "collegeName": "Lucknow University"
     }
   }
   ```
@@ -217,3 +212,7 @@ To link your Google Form automatically to the Express backend:
 2. **MongoDB Isolation**: Authentication verifies credentials strictly against MongoDB. Google Sheets is never accessed during login.
 3. **Duplicate Protection**: Unique indexes on `email`, `mobile`, and `username` prevent duplicate account creation.
 4. **Input Sanitization**: Request bodies are cleaned and validated to prevent injection vulnerabilities.
+5. **Webhook Secret**: Google Form registration endpoint is protected with `x-webhook-secret` header verification.
+6. **CORS Restriction**: API only accepts requests from the configured `CLIENT_URL` domain.
+7. **JWT Authentication**: Protected routes require a valid JWT Bearer token.
+8. **No Password in API Response**: Credentials are only sent via email, never returned in HTTP responses.

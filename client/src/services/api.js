@@ -54,24 +54,6 @@ export const getMe = async () => {
   }
 };
 
-/**
- * Direct Student Web Registration API (Simulate Google Form submission)
- * POST /api/students/register
- */
-export const registerStudentDirect = async (formData) => {
-  try {
-    const response = await api.post('/students/register', formData);
-    return response.data;
-  } catch (error) {
-    if (error.response && error.response.data) {
-      return error.response.data;
-    }
-    return {
-      success: false,
-      message: error.message || 'Registration failed.',
-    };
-  }
-};
 
 /**
  * List all registered students

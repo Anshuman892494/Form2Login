@@ -27,10 +27,6 @@ export const googleRegisterController = async (req, res, next) => {
       success: true,
       message: result.message,
       student: result.student,
-      generatedCredentials: {
-        username: result.student.username,
-        password: result.rawPassword,
-      },
     });
   } catch (error) {
     console.error('❌ [Google Registration Controller Error]:', error.message);
@@ -41,30 +37,6 @@ export const googleRegisterController = async (req, res, next) => {
   }
 };
 
-/**
- * Direct web registration endpoint.
- * Endpoint: POST /api/students/register
- */
-export const directRegisterController = async (req, res, next) => {
-  try {
-    const result = await registerStudentService(req.body);
-
-    return res.status(201).json({
-      success: true,
-      message: result.message,
-      student: result.student,
-      generatedCredentials: {
-        username: result.student.username,
-        password: result.rawPassword,
-      },
-    });
-  } catch (error) {
-    return res.status(400).json({
-      success: false,
-      message: error.message || 'Student registration failed.',
-    });
-  }
-};
 
 /**
  * List registered students.

@@ -139,7 +139,7 @@ Form2Login Support Team
   console.log(`📩 [WELCOME EMAIL GENERATED FOR STUDENT: ${name}]`);
   console.log(`📧 Email To:  ${email}`);
   console.log(`👤 Username:  ${username}`);
-  console.log(`🔑 Password:  ${password}`);
+  console.log(`🔑 Password:  ${'*'.repeat(password.length)} (masked)`);
   console.log(`=============================================================`);
 
   try {

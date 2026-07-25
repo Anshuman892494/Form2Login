@@ -10,7 +10,8 @@ export const protectRoute = async (req, res, next) => {
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
-      const secret = process.env.JWT_SECRET || 'form2login_jwt_super_secret_key_2026';
+      const secret = process.env.JWT_SECRET;
+      if (!secret) throw new Error('JWT_SECRET is not set in environment variables.');
       
       const decoded = jwt.verify(token, secret);
 

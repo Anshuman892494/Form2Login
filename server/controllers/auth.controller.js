@@ -28,7 +28,8 @@ export const studentLoginController = async (req, res, next) => {
     }
 
     // Generate JWT token
-    const secret = process.env.JWT_SECRET || 'form2login_jwt_super_secret_key_2026';
+    const secret = process.env.JWT_SECRET;
+    if (!secret) throw new Error('JWT_SECRET is not set in environment variables.');
     const token = jwt.sign(
       {
         id: authResult.student.id,
@@ -36,7 +37,7 @@ export const studentLoginController = async (req, res, next) => {
         email: authResult.student.email,
       },
       secret,
-      { expiresIn: '24h' }
+      { expiresIn: '7d' }
     );
 
     // 200 OK with JWT token and student profile
