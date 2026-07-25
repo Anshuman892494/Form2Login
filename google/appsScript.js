@@ -54,7 +54,8 @@ function onFormSubmit(e) {
       contentType: "application/json",
       headers: {
         "bypass-tunnel-reminder": "true",
-        "Bypass-Tunnel-Reminder": "true"
+        "Bypass-Tunnel-Reminder": "true",
+        "x-webhook-secret": "form2login_super_secret_webhook_key_2026"
       },
       payload: JSON.stringify(payload),
       muteHttpExceptions: true

@@ -9,6 +9,18 @@ export const googleRegisterController = async (req, res, next) => {
   try {
     console.log('📩 [Google Form Webhook Triggered] Payload:', req.body);
 
+    // Security Check: Verify Webhook Secret
+    const expectedSecret = process.env.WEBHOOK_SECRET;
+    const providedSecret = req.headers['x-webhook-secret'];
+
+    if (providedSecret !== expectedSecret) {
+      console.warn('⚠️ [Webhook Security Blocked] Unauthorized request received.');
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized: Invalid Webhook Secret.',
+      });
+    }
+
     const result = await registerStudentService(req.body);
 
     return res.status(201).json({

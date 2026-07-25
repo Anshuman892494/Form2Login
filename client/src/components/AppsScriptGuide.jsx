@@ -25,6 +25,9 @@ function onFormSubmit(e) {
     var options = {
       method: "post",
       contentType: "application/json",
+      headers: {
+        "x-webhook-secret": "form2login_super_secret_webhook_key_2026"
+      },
       payload: JSON.stringify(payload),
       muteHttpExceptions: true
     };
