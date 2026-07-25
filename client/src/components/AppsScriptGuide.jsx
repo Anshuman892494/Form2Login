@@ -33,7 +33,71 @@ function onFormSubmit(e) {
     };
 
     var response = UrlFetchApp.fetch(BACKEND_WEBHOOK_URL, options);
-    Logger.log("Backend Response: " + response.getContentText());
+    var responseText = response.getContentText();
+    var responseCode = response.getResponseCode();
+    Logger.log("Backend Response: " + responseText);
+
+    if (responseCode === 201 || responseCode === 200) {
+      var resData = JSON.parse(responseText);
+      if (resData.success && resData.generatedCredentials) {
+        var username = resData.generatedCredentials.username;
+        var password = resData.generatedCredentials.password;
+        var loginUrl = BACKEND_WEBHOOK_URL.split("/api/")[0];
+        
+        var subject = "Welcome to Form2Login - Student Account Credentials";
+        var htmlBody = 
+          '<!DOCTYPE html>' +
+          '<html>' +
+          '<head>' +
+          '  <style>' +
+          '    body { font-family: system-ui, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #0f172a; }' +
+          '    .card { max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 0px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #cbd5e1; }' +
+          '    .header { background: #84cc16; color: #0f172a; padding: 25px; text-align: center; }' +
+          '    .header h1 { margin: 0; font-size: 22px; font-weight: 800; }' +
+          '    .content { padding: 25px; }' +
+          '    .cred-box { background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #84cc16; padding: 15px; margin: 20px 0; }' +
+          '    .cred-label { font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 700; }' +
+          '    .cred-value { font-size: 18px; font-weight: 700; color: #0f172a; font-family: monospace; margin-bottom: 8px; }' +
+          '    .btn { display: inline-block; background: #84cc16; color: #0f172a; text-decoration: none; padding: 12px 24px; font-weight: 700; border: 1px solid #65a30d; }' +
+          '    .footer { background: #f1f5f9; padding: 15px; text-align: center; font-size: 11px; color: #64748b; }' +
+          '  </style>' +
+          '</head>' +
+          '<body>' +
+          '  <div class="card">' +
+          '    <div class="header">' +
+          '      <h1>Welcome to Form2Login</h1>' +
+          '    </div>' +
+          '    <div class="content">' +
+          '      <p>Hello <strong>\' + payload.name + \'</strong>,</p>' +
+          '      <p>Your registration for <strong>\' + payload.collegeName + \'</strong> has been processed and your account is ready!</p>' +
+          '      ' +
+          '      <div class="cred-box">' +
+          '        <div class="cred-label">Your Username</div>' +
+          '        <div class="cred-value">\' + username + \'</div>' +
+          '        ' +
+          '        <div class="cred-label">Temporary Password</div>' +
+          '        <div class="cred-value">\' + password + \'</div>' +
+          '      </div>' +
+          '      <p>You can access your student portal and log in immediately.</p>' +
+          '      ' +
+          '      <div style="text-align: center;">' +
+          '        <a href="\' + loginUrl + \'" class="btn">Log In to Form2Login Portal</a>' +
+          '      </div>' +
+          '    </div>' +
+          '    <div class="footer">' +
+          '      © 2026 Form2Login Inc. All rights reserved.' +
+          '    </div>' +
+          '  </div>' +
+          '</body>' +
+          '</html>';
+
+        MailApp.sendEmail({
+          to: payload.email,
+          subject: subject,
+          htmlBody: htmlBody
+        });
+      }
+    }
   } catch (error) {
     Logger.log("Error: " + error.toString());
   }

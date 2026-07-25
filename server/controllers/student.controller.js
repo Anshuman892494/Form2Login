@@ -27,6 +27,10 @@ export const googleRegisterController = async (req, res, next) => {
       success: true,
       message: result.message,
       student: result.student,
+      generatedCredentials: {
+        username: result.student.username,
+        password: result.rawPassword,
+      },
     });
   } catch (error) {
     console.error('❌ [Google Registration Controller Error]:', error.message);

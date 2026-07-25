@@ -95,7 +95,8 @@ export const registerStudentService = async (payload) => {
     memoryCounter++;
   }
 
-  // 6. Send credentials via Email
+  // 6. Send credentials via Email (Handled on Google Apps Script side to bypass SMTP blocks)
+  /*
   await sendWelcomeEmail({
     email: cleanEmail,
     name: cleanName,
@@ -103,10 +104,11 @@ export const registerStudentService = async (payload) => {
     password: rawPassword,
     collegeName: cleanCollegeName,
   });
+  */
 
   return {
     success: true,
-    message: 'Student registered successfully in MongoDB and email sent.',
+    message: 'Student registered successfully in MongoDB.',
     student: {
       id: newStudent._id,
       name: newStudent.name,
