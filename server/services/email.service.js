@@ -18,15 +18,26 @@ const getTransporter = async () => {
 
   if (smtpHost && smtpUser && smtpPass) {
     console.log(`📧 [Email Service] Configuring live SMTP transporter via ${smtpHost}`);
-    transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: parseInt(process.env.SMTP_PORT || '587', 10),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    });
+    
+    const transportConfig = smtpHost.includes('gmail.com') 
+      ? {
+          service: 'gmail',
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+        }
+      : {
+          host: smtpHost,
+          port: parseInt(process.env.SMTP_PORT || '587', 10),
+          secure: process.env.SMTP_SECURE === 'true',
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+        };
+
+    transporter = nodemailer.createTransport(transportConfig);
     return transporter;
   }
 
