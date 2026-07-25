@@ -59,9 +59,9 @@ const getTransporter = async () => {
  * @param {string} params.name Student's full name
  * @param {string} params.username Generated username (e.g. EP260001)
  * @param {string} params.password Generated raw password (e.g. Ex@48291)
- * @param {string} params.course Registered course name
+ * @param {string} params.collegeName Registered college name
  */
-export const sendWelcomeEmail = async ({ email, name, username, password, course }) => {
+export const sendWelcomeEmail = async ({ email, name, username, password, collegeName }) => {
   const loginUrl = process.env.CLIENT_URL || 'http://localhost:3000';
   const fromHeader = process.env.EMAIL_FROM || '"Form2Login Support" <no-reply@form2login.com>';
 
@@ -70,7 +70,7 @@ export const sendWelcomeEmail = async ({ email, name, username, password, course
   const textBody = `
 Welcome to Form2Login, ${name}!
 
-Your account for ${course} has been created successfully.
+Your account for ${collegeName} has been created successfully.
 
 Here are your login credentials:
 ----------------------------------------
@@ -110,7 +110,7 @@ Form2Login Support Team
         </div>
         <div class="content">
           <p>Hello <strong>${name}</strong>,</p>
-          <p>Your registration for <strong>${course}</strong> has been processed and your account is ready!</p>
+          <p>Your registration for <strong>${collegeName}</strong> has been processed and your account is ready!</p>
           
           <div class="cred-box">
             <div class="cred-label">Your Username</div>

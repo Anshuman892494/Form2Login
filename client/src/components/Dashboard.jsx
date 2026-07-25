@@ -45,15 +45,10 @@ export const Dashboard = ({ student, onLogout }) => {
 
           <div className="space-y-2.5 text-xs">
             <div className="flex justify-between items-center py-0.5">
-              <span className="text-slate-500 font-medium">Enrolled Course:</span>
+              <span className="text-slate-500 font-medium">College Name:</span>
               <span className="font-bold text-slate-900 bg-lime-100 px-2.5 py-0.5 border border-lime-400 rounded-none">
-                {student.course}
+                {student.collegeName}
               </span>
-            </div>
-
-            <div className="flex justify-between items-center py-0.5">
-              <span className="text-slate-500 font-medium">Father's Name:</span>
-              <span className="font-bold text-slate-800">{student.fatherName}</span>
             </div>
 
             <div className="flex justify-between items-center py-0.5">

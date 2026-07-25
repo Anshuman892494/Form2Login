@@ -34,19 +34,17 @@ function onFormSubmit(e) {
      * Standard Google Form Row Mapping:
      * Column 0: Timestamp
      * Column 1: Full Name
-     * Column 2: Father's Name
-     * Column 3: Mobile Number
-     * Column 4: Email Address
-     * Column 5: Course
-     * Column 6: Address
+     * Column 2: Mobile Number
+     * Column 3: Email Address
+     * Column 4: College Name
+     * Column 5: Address
      */
     var payload = {
       name: rowData[1] || "",
-      fatherName: rowData[2] || "",
-      mobile: String(rowData[3] || "").trim(),
-      email: rowData[4] || "",
-      course: rowData[5] || "",
-      address: rowData[6] || ""
+      mobile: String(rowData[2] || "").trim(),
+      email: rowData[3] || "",
+      collegeName: rowData[4] || "",
+      address: rowData[5] || ""
     };
 
     Logger.log("Sending payload to backend: " + JSON.stringify(payload));

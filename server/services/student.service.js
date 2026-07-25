@@ -19,22 +19,21 @@ let memoryCounter = 1;
  * 6. Save in MongoDB (or fallback memory database)
  * 7. Send credentials email
  * 
- * @param {object} payload { name, fatherName, mobile, email, course, address }
+ * @param {object} payload { name, mobile, email, collegeName, address }
  * @returns {Promise<{ success: boolean, student?: object, rawPassword?: string, message: string }>}
  */
 export const registerStudentService = async (payload) => {
-  const { name, fatherName, mobile, email, course, address } = payload;
+  const { name, mobile, email, collegeName, address } = payload;
 
   // 1. Mandatory input validation
-  if (!name || !fatherName || !mobile || !email || !course || !address) {
-    throw new Error('All form fields (name, fatherName, mobile, email, course, address) are required.');
+  if (!name || !mobile || !email || !collegeName || !address) {
+    throw new Error('All form fields (name, mobile, email, collegeName, address) are required.');
   }
 
   const cleanEmail = String(email).trim().toLowerCase();
   const cleanMobile = String(mobile).trim();
   const cleanName = String(name).trim();
-  const cleanFatherName = String(fatherName).trim();
-  const cleanCourse = String(course).trim();
+  const cleanCollegeName = String(collegeName).trim();
   const cleanAddress = String(address).trim();
 
   // 2. Check duplicate email or mobile
@@ -72,10 +71,9 @@ export const registerStudentService = async (payload) => {
   if (dbConnected) {
     newStudent = await Student.create({
       name: cleanName,
-      fatherName: cleanFatherName,
       mobile: cleanMobile,
       email: cleanEmail,
-      course: cleanCourse,
+      collegeName: cleanCollegeName,
       address: cleanAddress,
       username: generatedUsername,
       passwordHash,
@@ -85,10 +83,9 @@ export const registerStudentService = async (payload) => {
     newStudent = {
       _id: `mem_${Date.now()}`,
       name: cleanName,
-      fatherName: cleanFatherName,
       mobile: cleanMobile,
       email: cleanEmail,
-      course: cleanCourse,
+      collegeName: cleanCollegeName,
       address: cleanAddress,
       username: generatedUsername,
       passwordHash,
@@ -104,7 +101,7 @@ export const registerStudentService = async (payload) => {
     name: cleanName,
     username: generatedUsername,
     password: rawPassword,
-    course: cleanCourse,
+    collegeName: cleanCollegeName,
   });
 
   return {
@@ -115,7 +112,7 @@ export const registerStudentService = async (payload) => {
       name: newStudent.name,
       email: newStudent.email,
       username: newStudent.username,
-      course: newStudent.course,
+      collegeName: newStudent.collegeName,
       createdAt: newStudent.createdAt,
     },
     rawPassword, // Returned for instant testing confirmation response
@@ -170,10 +167,9 @@ export const authenticateStudentService = async (username, password) => {
     student: {
       id: targetStudent._id,
       name: targetStudent.name,
-      fatherName: targetStudent.fatherName,
       mobile: targetStudent.mobile,
       email: targetStudent.email,
-      course: targetStudent.course,
+      collegeName: targetStudent.collegeName,
       address: targetStudent.address,
       username: targetStudent.username,
       createdAt: targetStudent.createdAt,

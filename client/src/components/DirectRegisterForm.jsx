@@ -5,10 +5,9 @@ import { registerStudentDirect } from '../services/api';
 export const DirectRegisterForm = ({ onRegistrationComplete }) => {
   const [formData, setFormData] = useState({
     name: 'Anshu Verma',
-    fatherName: 'Ram Verma',
     mobile: '9876543210',
     email: 'anshu@example.com',
-    course: 'CCC',
+    collegeName: 'Lucknow University',
     address: 'Lucknow, Uttar Pradesh',
   });
 
@@ -139,26 +138,7 @@ export const DirectRegisterForm = ({ onRegistrationComplete }) => {
               </div>
             </div>
 
-            {/* Father's Name */}
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                Father's Name *
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <User className="w-5 h-5" />
-                </div>
-                <input
-                  type="text"
-                  name="fatherName"
-                  value={formData.fatherName}
-                  onChange={handleChange}
-                  required
-                  placeholder="e.g. Ram Verma"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl glass-input text-slate-100 text-sm outline-none"
-                />
-              </div>
-            </div>
+
 
             {/* Mobile Number */}
             <div>
@@ -202,10 +182,10 @@ export const DirectRegisterForm = ({ onRegistrationComplete }) => {
               </div>
             </div>
 
-            {/* Course */}
+            {/* College Name */}
             <div>
               <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                Course *
+                College Name *
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -213,11 +193,11 @@ export const DirectRegisterForm = ({ onRegistrationComplete }) => {
                 </div>
                 <input
                   type="text"
-                  name="course"
-                  value={formData.course}
+                  name="collegeName"
+                  value={formData.collegeName}
                   onChange={handleChange}
                   required
-                  placeholder="e.g. CCC / O Level / Web Dev"
+                  placeholder="e.g. Lucknow University"
                   className="w-full pl-11 pr-4 py-3 rounded-xl glass-input text-slate-100 text-sm outline-none"
                 />
               </div>

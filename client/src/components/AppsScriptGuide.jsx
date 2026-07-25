@@ -16,10 +16,10 @@ function onFormSubmit(e) {
     
     var payload = {
       name: rowData[1] || "",
-      mobile: String(rowData[3] || "").trim(),
-      email: rowData[4] || "",
-      course: rowData[5] || "",
-      address: rowData[6] || ""
+      mobile: String(rowData[2] || "").trim(),
+      email: rowData[3] || "",
+      collegeName: rowData[4] || "",
+      address: rowData[5] || ""
     };
 
     var options = {

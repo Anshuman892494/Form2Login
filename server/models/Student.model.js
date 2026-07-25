@@ -7,11 +7,7 @@ const StudentSchema = new mongoose.Schema(
       required: [true, 'Full Name is required'],
       trim: true,
     },
-    fatherName: {
-      type: String,
-      required: [true, "Father's Name is required"],
-      trim: true,
-    },
+
     mobile: {
       type: String,
       required: [true, 'Mobile Number is required'],
@@ -25,9 +21,9 @@ const StudentSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    course: {
+    collegeName: {
       type: String,
-      required: [true, 'Course is required'],
+      required: [true, 'College Name is required'],
       trim: true,
     },
     address: {
