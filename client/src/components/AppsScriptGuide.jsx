@@ -6,7 +6,7 @@ const APPS_SCRIPT_CODE = `/**
  * Trigger: On form submit
  */
 
-const BACKEND_WEBHOOK_URL = "http://localhost:5000/api/students/google-register";
+const BACKEND_WEBHOOK_URL = "https://form2login-server.onrender.com/api/students/google-register";
 
 function onFormSubmit(e) {
   try {

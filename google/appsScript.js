@@ -15,7 +15,7 @@
  */
 
 // PERMANENT FIXED WEBHOOK URL (Does not change on restart)
-const BACKEND_WEBHOOK_URL = "https://form2login-student-register.loca.lt/api/students/google-register";
+const BACKEND_WEBHOOK_URL = "https://form2login-server.onrender.com/api/students/google-register";
 
 /**
  * Triggered automatically when a student submits the Google Form.
