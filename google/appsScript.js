@@ -24,10 +24,10 @@ function onFormSubmit(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSheet();
     var lastRow = sheet.getLastRow();
-    
+
     // If trigger event parameter exists, use e.values, else read last row from active sheet
     var rowData = (e && e.values) ? e.values : sheet.getRange(lastRow, 1, 1, sheet.getLastColumn()).getValues()[0];
-    
+
     Logger.log("Raw Form Submission Row: " + JSON.stringify(rowData));
 
     /**
@@ -55,7 +55,7 @@ function onFormSubmit(e) {
       headers: {
         "bypass-tunnel-reminder": "true",
         "Bypass-Tunnel-Reminder": "true",
-        "x-webhook-secret": "form2login_super_secret_webhook_key_2026"
+        "x-webhook-secret": "YOUR_WEBHOOK_SECRET_KEY_HERE"
       },
       payload: JSON.stringify(payload),
       muteHttpExceptions: true
@@ -63,7 +63,7 @@ function onFormSubmit(e) {
 
     var response = UrlFetchApp.fetch(BACKEND_WEBHOOK_URL, options);
     var responseText = response.getContentText();
-    
+
     Logger.log("Backend Response Code: " + response.getResponseCode());
     Logger.log("Backend Response Body: " + responseText);
 
