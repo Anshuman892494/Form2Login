@@ -43,6 +43,11 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Ping route for Render deployment / keep-alive
+app.get('/ping', (req, res) => {
+  res.status(200).send('server is active');
+});
+
 // Production Static Serving
 const clientBuildPath = path.join(__dirname, '../client/dist');
 app.use(express.static(clientBuildPath));
